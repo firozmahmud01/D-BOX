@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#00FFFFFF"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/login_mac_address"
+        android:layout_width="300dp"
+        android:hint="MAC Address"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/login_serial_number"
+        android:layout_width="300dp"
+        android:hint="Serial Number"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/login_username"
+        android:layout_width="300dp"
+        android:hint="Username"
+        android:layout_height="wrap_content"/>
+<EditText
+    android:id="@+id/login_password"
+    android:layout_width="300dp"
+    android:hint="Password"
+    android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/login_dialog_button"
+        android:layout_width="300dp"
+        android:text="Login"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
