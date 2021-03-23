@@ -30,6 +30,9 @@ public class MainActivity extends Activity {
     boolean isHome=true;
     MainFragment mf=null;
 
+
+    public static boolean starttime=true;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,8 @@ public class MainActivity extends Activity {
                 loadAdditionalData();
             }
         });
-        if(getSharedPreferences(Api.storage_name,MODE_PRIVATE).getBoolean(Settings.splash_key,true)) {
+        if(getSharedPreferences(Api.storage_name,MODE_PRIVATE).getBoolean(Settings.splash_key,true)||starttime) {
+            starttime=false;
             vv.start();
         }else{
             setContentView(R.layout.activity_main);
