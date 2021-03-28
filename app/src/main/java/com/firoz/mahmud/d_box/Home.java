@@ -2,6 +2,7 @@ package com.firoz.mahmud.d_box;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -9,7 +10,9 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 public class Home extends Fragment {
@@ -21,8 +24,11 @@ public class Home extends Fragment {
     Fragment homeview,settingsview,appsview;
     MainActivity ma;
     int height,width;
-    Handler h;
     Api api;
+    ImageView hiv,setiv,appiv,tviv,wifi,update,vod;
+
+
+    Handler h;
     public Home(int height,int width,MainActivity ma){
         this.ma=ma;
         this.height=height;
@@ -43,8 +49,43 @@ public class Home extends Fragment {
         settings=view.findViewById(R.id.settings_icon);
         tv=view.findViewById(R.id.tv_icon);
         apps=view.findViewById(R.id.all_app_icon);
-        h=new Handler();
+        hiv=view.findViewById(R.id.home_home_imageciew);
+        setiv=view.findViewById(R.id.home_settings_imageview);
+        appiv=view.findViewById(R.id.home_app_imageview);
+        tviv=view.findViewById(R.id.home_tv_imageview);
         api=new Api(getContext(),h);
+        vod=view.findViewById(R.id.home_vod_imageview);
+
+        api.changeSizeofView(hiv,ma.p,20);
+        api.changeSizeofView(setiv,ma.p,20);
+        api.changeSizeofView(appiv,ma.p,20);
+        api.changeSizeofView(tviv,ma.p,20);
+        api.changeSizeofView(vod,ma.p,20);
+        wifi=view.findViewById(R.id.home_view_wifi_imageview);
+        api.changeSizeofView(wifi,ma.p,20);
+        wifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+            }
+        });
+
+
+        update=view.findViewById(R.id.home_view_update_imageview);
+        api.changeSizeofView(update,ma.p,20);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Need a server to check", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        h=new Handler();
+
+
+
+
+
         Thread th=new Thread() {
             @Override
             public void run() {
@@ -62,8 +103,8 @@ public class Home extends Fragment {
         tv.setAlpha((float)0.5);
         homeview=new HomeView(height,width);
         settingsview=new Settings(getContext());
-        appsview=new AllApps();
-        apps.setOnClickListener(new View.OnClickListener() {
+        appsview=new AllApps(ma);
+        appiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateAlfha(1);
@@ -73,7 +114,7 @@ public class Home extends Fragment {
             }
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
+        hiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateAlfha(0);
@@ -85,7 +126,7 @@ public class Home extends Fragment {
         FragmentTransaction fm=getFragmentManager().beginTransaction();
         fm.replace(R.id.home_fragmanet_layout_toreplace,homeview);
         fm.commit();
-        settings.setOnClickListener(new View.OnClickListener() {
+        setiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateAlfha(2);
@@ -95,7 +136,7 @@ public class Home extends Fragment {
             }
         });
 
-        tv.setOnClickListener(new View.OnClickListener() {
+        tviv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ma.isHome=false;

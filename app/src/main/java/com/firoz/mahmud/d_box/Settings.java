@@ -55,20 +55,7 @@ public class Settings extends Fragment {
         user=view.findViewById(R.id.settings_User_name_Edittext);
         splash=view.findViewById(R.id.settings_checkBox);
 
-        view.findViewById(R.id.home_view_wifi_imageview).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getContext().startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
-            }
-        });
 
-
-        view.findViewById(R.id.home_view_update_imageview).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Need a server to check", Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
         sp=view.getContext().getSharedPreferences(Api.storage_name,Context.MODE_PRIVATE);

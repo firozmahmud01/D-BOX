@@ -46,7 +46,7 @@ public class MainFragment extends BrowseFragment {
     private static final int GRID_ITEM_HEIGHT = 200;
 
 
-    private final Handler mHandler = new Handler();
+
     private String mBackgroundUri;
     private Api api;
     int height;
@@ -76,12 +76,12 @@ public class MainFragment extends BrowseFragment {
 
 
         setupUIElements();
-        Handler h=new Handler();
-        api=new Api(getContext(),h);
+
+        handler=new Handler();
+        api=new Api(getContext(),handler);
 
         loadRows();
 
-        handler=new Handler();
         setupEventListeners();
     }
 
@@ -115,14 +115,14 @@ public class MainFragment extends BrowseFragment {
                                     HeaderItem header = new HeaderItem(0, name+" Page-"+i);
                                     listRowAdapter.addAll(0, tv);
                                     rowsAdapter.add(new ListRow(header, listRowAdapter));
-                                    mHandler.post(new Runnable() {
+                                    handler.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             pd.dismiss();
                                         }
                                     });
                                 } catch (Exception e) {
-                                    mHandler.post(new Runnable() {
+                                    handler.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             pd.dismiss();
@@ -156,7 +156,7 @@ public class MainFragment extends BrowseFragment {
                                 listRowAdapter.addAll(0, radio);
                                 rowsAdapter.add(new ListRow(header, listRowAdapter));
                             }
-                            mHandler.post(new Runnable() {
+                            handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     pd.dismiss();
@@ -171,7 +171,7 @@ public class MainFragment extends BrowseFragment {
                     }
                         }
 
-                    mHandler.post(new Runnable() {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             pd.dismiss();
@@ -181,7 +181,7 @@ public class MainFragment extends BrowseFragment {
 
 
                 }
-                mHandler.post(new Runnable() {
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         pd.dismiss();

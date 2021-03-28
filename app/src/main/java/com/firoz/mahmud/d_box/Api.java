@@ -3,17 +3,21 @@ package com.firoz.mahmud.d_box;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ThemedSpinnerAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import org.json.JSONArray;
@@ -62,12 +66,38 @@ public class Api {
     Handler h;
 
 
+
+
     public Api(Context context,Handler h){
         this.context=context;
         this.h=h;
     }
     public void Check() throws Exception {
         GET("http://s3.starone.pw/stalker_portal/server/load.php?type=watchdog&action=get_events&cur_play_type=0&event_active_id=0&init=1&JsHttpRequest=1-xml");
+    }
+
+    public void changeSizeofView(final View view, final Point p,final int part){
+        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                change(v,p,hasFocus,part);
+        }
+        });
+        change(view,p,false,part);
+    }
+    private void change(View v,Point p,boolean hasFocus,int part){
+        ViewGroup.LayoutParams lp=v.getLayoutParams();
+        int x=p.x/part;
+        int y=x;
+        if (hasFocus) {
+            int a=x/2;
+            lp.width =x+a;
+            lp.height =x+a;
+        }else{
+            lp.width=x;
+            lp.height=y;
+        }
+        v.setLayoutParams(lp);
     }
 
     public List<Movie> loadFavoriteList() throws Exception {

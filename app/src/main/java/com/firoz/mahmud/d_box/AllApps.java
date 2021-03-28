@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,11 @@ public class AllApps extends Fragment {
     GridView gv;
     BaseAdapter ba;
     PackageManager pm;
+    Api api;
+    MainActivity ma;
+    public AllApps(MainActivity ma){
+        this.ma=ma;
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -38,7 +44,7 @@ public class AllApps extends Fragment {
         pm=getContext().getPackageManager();
         List<PackageInfo> packageInfoList = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
         final List<PackageInfo> packages = new ArrayList<PackageInfo>();
-
+        api=new Api(getContext(),new Handler());
         for(PackageInfo pi: packageInfoList){
             if(!isSystemPackage(pi)){
                 packages.add(pi);
@@ -74,6 +80,7 @@ public class AllApps extends Fragment {
                 }
                 TextView tv=cv.findViewById(R.id.all_app_item_name);
                 tv.setText(pm.getApplicationLabel(packages.get(position).applicationInfo));
+                api.changeSizeofView(cv,ma.p,20);
                 return cv;
             }
         };

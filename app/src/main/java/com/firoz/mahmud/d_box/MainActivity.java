@@ -25,7 +25,7 @@ import androidx.fragment.app.FragmentActivity;
 
 public class MainActivity extends Activity {
 
-    int height,width;
+    Point p;
     WindowManager wm;
     boolean isHome=true;
     MainFragment mf=null;
@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
                 loadAdditionalData();
             }
         });
-        if(getSharedPreferences(Api.storage_name,MODE_PRIVATE).getBoolean(Settings.splash_key,true)||starttime) {
+        if(getSharedPreferences(Api.storage_name,MODE_PRIVATE).getBoolean(Settings.splash_key,true)&&starttime) {
             starttime=false;
             vv.start();
         }else{
@@ -64,11 +64,12 @@ public class MainActivity extends Activity {
     private void loadAdditionalData(){
 
         wm=getWindowManager();
-        height=wm.getDefaultDisplay().getHeight();
-        width=wm.getDefaultDisplay().getWidth();
+        p=new Point();
+        p.y=wm.getDefaultDisplay().getHeight();
+        p.x=wm.getDefaultDisplay().getWidth();
 
         ft=getFragmentManager().beginTransaction();
-        ft.replace(R.id.mainFram,new Home(height,width,this));
+        ft.replace(R.id.mainFram,new Home(p.y,p.x,this));
         ft.commit();
 
 
@@ -89,7 +90,7 @@ public class MainActivity extends Activity {
             }else {
                 isHome = true;
                 ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.mainFram, new Home(height, width, this));
+                ft.replace(R.id.mainFram, new Home(p.y, p.x, this));
                 ft.commit();
             }
         }

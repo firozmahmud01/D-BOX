@@ -13,57 +13,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/home_view_wifi_imageview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/makebigger"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:src="@drawable/ic_baseline_wifi_24"
-            app:layout_constraintEnd_toStartOf="@+id/home_view_update_imageview"
-            app:layout_constraintHorizontal_bias="0.84"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="WIFI"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toEndOf="@+id/home_view_wifi_imageview"
-            app:layout_constraintStart_toStartOf="@+id/home_view_wifi_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/home_view_wifi_imageview" />
-
-        <ImageView
-            android:id="@+id/home_view_update_imageview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:focusableInTouchMode="true"
-            android:focusable="true"
-            android:background="@drawable/makebigger"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_baseline_sync_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/home_view_wifi_imageview"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="UPDATE"
-            app:layout_constraintEnd_toEndOf="@+id/home_view_update_imageview"
-            app:layout_constraintStart_toStartOf="@+id/home_view_update_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/home_view_update_imageview" />
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"

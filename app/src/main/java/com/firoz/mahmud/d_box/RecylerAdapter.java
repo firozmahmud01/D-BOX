@@ -49,11 +49,22 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.ViewHold
     private void updateSize(View v,boolean isSelected){
         ViewGroup.LayoutParams lp= v.getLayoutParams();
         if (isSelected){
-            lp.width=width/4;
-            lp.height=height/4;
+            lp.width=width/5;
+            lp.height=height/5;
         }else{
             lp.width=width/6;
             lp.height=height/6;
+        }
+        v.setLayoutParams(lp);
+    }
+    private void updatewidth(View v,boolean isSelected){
+        ViewGroup.LayoutParams lp= v.getLayoutParams();
+        if (isSelected){
+            lp.width=width/5;
+            lp.height=height/5;
+        }else{
+            lp.width=width/6;
+            lp.height=height/5;
         }
         v.setLayoutParams(lp);
     }
@@ -67,16 +78,17 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.ViewHold
         view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                updateSize(v,hasFocus);
+                updatewidth(v,hasFocus);
                 ImageView iv=v.findViewById(R.id.onlyimageImageview);
-                updateSize(iv,false);
+                updateSize(iv,hasFocus);
             }
         });
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
-        updateSize(view,false);
+        updatewidth(view,false);
         ImageView iv=view.findViewById(R.id.onlyimageImageview);
         updateSize(iv,false);
+
         return new ViewHolder(view);
 
     }

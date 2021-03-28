@@ -26,15 +26,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:nextFocusDown="@+id/all_app_icon"
-                android:background="@drawable/makebigger"
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/home_home_imageciew"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:src="@drawable/home_icon" />
 
                 <TextView
@@ -46,21 +46,48 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tv_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/makebigger"
+                android:gravity="center"
+                android:nextFocusUp="@+id/settings_icon"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/home_tv_imageview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:src="@drawable/ic_baseline_tv_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TV"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/all_app_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:nextFocusDown="@+id/settings_icon"
-                android:nextFocusUp="@+id/home_icon"
                 android:background="@drawable/makebigger"
                 android:gravity="center"
+                android:nextFocusUp="@+id/home_icon"
+                android:nextFocusDown="@+id/settings_icon"
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/home_app_imageview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:src="@drawable/all_apps" />
 
                 <TextView
@@ -75,19 +102,19 @@
                 android:id="@+id/settings_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/makebigger"
+                android:gravity="center"
                 android:nextFocusUp="@+id/all_app_icon"
                 android:nextFocusDown="@+id/tv_icon"
-                android:background="@drawable/makebigger"
-                android:focusable="true"
-                android:layout_marginTop="10dp"
-                android:focusableInTouchMode="true"
-                android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/home_settings_imageview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:src="@drawable/settings" />
 
                 <TextView
@@ -98,44 +125,93 @@
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/tv_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:focusable="true"
-                android:layout_marginTop="10dp"
-                android:focusableInTouchMode="true"
-                android:nextFocusUp="@+id/settings_icon"
-                android:background="@drawable/makebigger"
-                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_tv_24" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TV"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
         </LinearLayout>
 
         <FrameLayout
-            android:layout_width="0dp"
             android:id="@+id/home_fragmanet_layout_toreplace"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginLeft="16dp"
             app:layout_constraintStart_toEndOf="@+id/homelinearLayout"
             app:layout_constraintTop_toTopOf="parent">
 
         </FrameLayout>
 
+        <ImageView
+            android:id="@+id/home_view_wifi_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/ic_baseline_wifi_24"
+            app:layout_constraintEnd_toStartOf="@+id/home_view_update_imageview"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/home_vod_imageview"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WIFI"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/home_view_wifi_imageview"
+            app:layout_constraintStart_toStartOf="@+id/home_view_wifi_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/home_view_wifi_imageview" />
+
+        <ImageView
+            android:id="@+id/home_view_update_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/ic_baseline_sync_24"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/home_view_wifi_imageview"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VOD"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/home_vod_imageview"
+            app:layout_constraintStart_toStartOf="@+id/home_vod_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/home_vod_imageview" />
+
+        <ImageView
+            android:id="@+id/home_vod_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:focusable="true"
+            android:nextFocusLeft="@id/home_home_imageciew"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/vod"
+            app:layout_constraintEnd_toStartOf="@+id/home_view_wifi_imageview"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/home_fragmanet_layout_toreplace"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UPDATE"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/home_view_update_imageview"
+            app:layout_constraintStart_toStartOf="@+id/home_view_update_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/home_view_update_imageview" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
