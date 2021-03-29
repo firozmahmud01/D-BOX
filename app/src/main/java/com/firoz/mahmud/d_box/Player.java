@@ -36,6 +36,7 @@ public class Player extends VideoSupportFragment {
         mTransportControlGlue = new PlaybackTransportControlGlue<>(getContext(), playerAdapter);
         mTransportControlGlue.setHost(glueHost);
         mTransportControlGlue.setTitle(name);
+        mTransportControlGlue.setArt(getContext().getDrawable(R.drawable.diney));
         mTransportControlGlue.setSubtitle(description);
         mTransportControlGlue.playWhenPrepared();
         try {

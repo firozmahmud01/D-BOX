@@ -1,5 +1,6 @@
 package com.firoz.mahmud.d_box;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+@SuppressLint("ValidFragment")
 public class MainFragment extends BrowseFragment {
 
 
@@ -57,9 +59,12 @@ public class MainFragment extends BrowseFragment {
 
     private String type,genry;
     private String name;
+    private boolean fromtv;
     private Handler handler;
-    public MainFragment(int height,int width,MainActivity ma,String type,String genry,String name){
+
+    public MainFragment(int height, int width, MainActivity ma, String type, String genry, String name, boolean fromtv){
         this.type=type;
+        this.fromtv=fromtv;
         this.name=name;
         this.genry=genry;
         this.ma=ma;
@@ -133,29 +138,25 @@ public class MainFragment extends BrowseFragment {
                             }
                         }else {
                                 try {
-                            tv = api.getTvCatagory();
-                            video = api.getVideoCatagory();
-                            radio = api.getRadio();
-                            favorite=api.loadFavoriteList();
+
                             CardPresenter cardPresenter = new CardPresenter();
-                            ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-                            HeaderItem header = new HeaderItem(0, "TV");
-                            listRowAdapter.addAll(0,tv );
-                            rowsAdapter.add(new ListRow(header, listRowAdapter));
-                            listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-                            header = new HeaderItem(1, "Video Club");
-                            listRowAdapter.addAll(0, video);
-                            rowsAdapter.add(new ListRow(header, listRowAdapter));
-                            listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-                            header = new HeaderItem(2, "Radio");
-                            listRowAdapter.addAll(0,radio);
-                            rowsAdapter.add(new ListRow(header, listRowAdapter));
-                            if(favorite.size()>0) {
-                                listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-                                header = new HeaderItem(3, "Favorite");
-                                listRowAdapter.addAll(0, radio);
+                                ArrayObjectAdapter listRowAdapter ;
+                                    HeaderItem header;
+                                    if(fromtv) {
+                                        tv = api.getTvCatagory();
+                                listRowAdapter= new ArrayObjectAdapter(cardPresenter);
+                                header= new HeaderItem(0, "TV");
+                                listRowAdapter.addAll(0, tv);
                                 rowsAdapter.add(new ListRow(header, listRowAdapter));
-                            }
+                            }else {
+                                        video = api.getVideoCatagory();
+                                        listRowAdapter = new ArrayObjectAdapter(cardPresenter);
+                                        header = new HeaderItem(0, "Video Club");
+                                        listRowAdapter.addAll(0, video);
+                                        rowsAdapter.add(new ListRow(header, listRowAdapter));
+                                    }
+
+
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -230,7 +231,7 @@ public class MainFragment extends BrowseFragment {
                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
             final Movie movie=(Movie)item;
             final MainFragment mf=new MainFragment(height,width,ma,
-                    movie.getType(),""+movie.getId(),movie.getTitle());
+                    movie.getType(),""+movie.getId(),movie.getTitle(),false);
             Thread th=new Thread(){
                 @Override
                 public void run() {

@@ -67,12 +67,13 @@ public class AllApps extends Fragment {
             }
 
             @Override
-            public View getView(int position, View cv, ViewGroup parent) {
+            public View getView(final int position, View cv, ViewGroup parent) {
                 if(cv==null) {
                     cv = inflater.inflate(R.layout.allappsitem, null);
                 }
                 ImageView iv=cv.findViewById(R.id.all_app_item_icon);
-
+                iv.setFocusable(true);
+                iv.setFocusableInTouchMode(true);
                 try {
                     Glide.with(getContext()).load(pm.getApplicationIcon(packages.get(position).packageName)).into(iv);
                 } catch (PackageManager.NameNotFoundException e) {
@@ -80,7 +81,18 @@ public class AllApps extends Fragment {
                 }
                 TextView tv=cv.findViewById(R.id.all_app_item_name);
                 tv.setText(pm.getApplicationLabel(packages.get(position).applicationInfo));
-                api.changeSizeofView(cv,ma.p,20);
+                api.changeSizeofView(iv,ma.p,20);
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            getContext().startActivity(pm.getLaunchIntentForPackage(packages.get(position).packageName));
+                        }catch (Exception e){
+                            Toast.makeText(getContext(), "Failed to start this app", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                cv.setFocusable(false);
                 return cv;
             }
         };
@@ -88,16 +100,12 @@ public class AllApps extends Fragment {
 
         gv.setAdapter(ba);
 
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    getContext().startActivity(pm.getLaunchIntentForPackage(packages.get(position).packageName));
-                }catch (Exception e){
-                    Toast.makeText(getContext(), "Failed to start this app", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
+        gv.setClickable(false);
+        gv.setEnabled(false);
+        gv.setFocusable(false);
+
+
 
 return view;
     }

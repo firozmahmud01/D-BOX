@@ -57,12 +57,15 @@ public class Api {
     public static String password_key="PasswordKey";
     public static String aid_key="AidKey";
     public static String serial_key="SerialKey";
+    public static String portal_key="PortalKey";
+
 
     //private variable
     private Context context;
     private String token="";
     private String mac_address="";
     private boolean isshowing=false;
+    private String portal;
     Handler h;
 
 
@@ -71,9 +74,13 @@ public class Api {
     public Api(Context context,Handler h){
         this.context=context;
         this.h=h;
+        this.portal=context.getSharedPreferences(storage_name,Context.MODE_PRIVATE).getString(portal_key,"");
+        if (!portal.startsWith("http")){
+            this.portal="http://"+portal;
+        }
     }
     public void Check() throws Exception {
-        GET("http://s3.starone.pw/stalker_portal/server/load.php?type=watchdog&action=get_events&cur_play_type=0&event_active_id=0&init=1&JsHttpRequest=1-xml");
+        GET(portal+"/stalker_portal/server/load.php?type=watchdog&action=get_events&cur_play_type=0&event_active_id=0&init=1&JsHttpRequest=1-xml");
     }
 
     public void changeSizeofView(final View view, final Point p,final int part){
@@ -87,6 +94,9 @@ public class Api {
     }
     private void change(View v,Point p,boolean hasFocus,int part){
         ViewGroup.LayoutParams lp=v.getLayoutParams();
+        lp=lp==null?new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT):lp;
         int x=p.x/part;
         int y=x;
         if (hasFocus) {
@@ -100,13 +110,13 @@ public class Api {
         v.setLayoutParams(lp);
     }
 
-    public List<Movie> loadFavoriteList() throws Exception {
+    public List<Movie> getFavoriteList() throws Exception {
         List<Movie>list=new ArrayList<>();
-        String tv="http://s3.starone.pw:80/stalker_portal/server/load.php?type=itv&action=get_ordered_list&sortby=fav&fav=1" +
+        String tv=portal+"/stalker_portal/server/load.php?type=itv&action=get_ordered_list&sortby=fav&fav=1" +
                 "&genre=*&JsHttpRequest=1-xml";
-        String vod="http://s3.starone.pw:80/stalker_portal/server/load.php?type=vod&action=get_ordered_list&sortby=fav&fav=1" +
+        String vod=portal+"/stalker_portal/server/load.php?type=vod&action=get_ordered_list&sortby=fav&fav=1" +
                 "&category=*&JsHttpRequest=1-xml";
-        String radio="http://s3.starone.pw:80/stalker_portal/server/load.php?type=radio&action=get_ordered_list&sortby=fav&fav=1" +
+        String radio=portal+"/stalker_portal/server/load.php?type=radio&action=get_ordered_list&sortby=fav&fav=1" +
                 "&JsHttpRequest=1-xml";
         JSONObject obj=new JSONObject(GET(tv));
         JSONArray ob=obj.getJSONObject("js").getJSONArray("data");
@@ -154,7 +164,7 @@ public class Api {
 
     private void Login() throws Exception {
         SharedPreferences sp=context.getSharedPreferences(storage_name,Context.MODE_PRIVATE);
-        String data=GET("http://s3.starone.pw:80/stalker_portal/server/load.php?type=stb&action=do_auth&login=" +
+        String data=GET(portal+"/stalker_portal/server/load.php?type=stb&action=do_auth&login=" +
                  sp.getString(username_key,"")+
                 "&password=" +sp.getString(password_key,"")+
                 "&device_id&device_id2&JsHttpRequest=1-xml");
@@ -172,7 +182,7 @@ public class Api {
     }
 
     private void handShake() throws Exception {
-        String result=GET("http://s3.starone.pw:80/stalker_portal/server/load.php?type=stb&action=handshake&token=&prehash=&JsHttpRequest=1-xml");
+        String result=GET(portal+"/stalker_portal/server/load.php?type=stb&action=handshake&token=&prehash=&JsHttpRequest=1-xml");
         JSONObject obj=new JSONObject(result);
         if (obj.has("js")) {
             obj= obj.getJSONObject("js");
@@ -189,7 +199,7 @@ public class Api {
 
     public List<Movie>getListByCatagory(String gen,String type,int page) throws Exception {
         List<Movie> list=new ArrayList<>();
-        String data=GET("http://s3.starone.pw:80/stalker_portal/server/load.php?type="+
+        String data=GET(portal+"/stalker_portal/server/load.php?type="+
                 type+"&action=get_ordered_list&p="+page+"&sortby="+
                 (type.equals("vod")?"added&category="+page:"number&&genre="+gen)+"&JsHttpRequest=1-xml");
         JSONObject obj=new JSONObject(data);
@@ -211,7 +221,7 @@ public class Api {
 
     public List<Movie> getTvCatagory() throws Exception {
         List<Movie> list=new ArrayList<>();
-        String data=GET("http://s3.starone.pw:80/stalker_portal/server/load.php?type=itv&action=get_genres&JsHttpRequest=1-xml");
+        String data=GET(portal+"/stalker_portal/server/load.php?type=itv&action=get_genres&JsHttpRequest=1-xml");
         JSONObject obj=new JSONObject(data);
         JSONArray ob=obj.getJSONArray("js");
 
@@ -232,7 +242,7 @@ public class Api {
 
     public List<Movie> getRadio() throws Exception {
         List<Movie>list=new ArrayList<>();
-        String data=GET("http://s3.starone.pw:80/stalker_portal/server/load.php?type=radio&action=get_ordered_list&all=1&JsHttpRequest=1-xml");
+        String data=GET(portal+"/stalker_portal/server/load.php?type=radio&action=get_ordered_list&all=1&JsHttpRequest=1-xml");
         JSONObject obj=new JSONObject(data);
         obj=obj.getJSONObject("js");
         JSONArray ja=obj.getJSONArray("data");
@@ -249,7 +259,7 @@ public class Api {
     }
     public List<Movie> getVideoCatagory() throws Exception {
         List<Movie>list=new ArrayList<>();
-        String data=GET("http://s3.starone.pw:80/stalker_portal/server/load.php?type=vod&action=get_categories&JsHttpRequest=1-xml");
+        String data=GET(portal+"/stalker_portal/server/load.php?type=vod&action=get_categories&JsHttpRequest=1-xml");
         JSONObject obj=new JSONObject(data);
 
         JSONArray ob=obj.getJSONArray("js");
@@ -281,7 +291,7 @@ public class Api {
         if(type==null||type.equals("radio")){
             return link;
         }
-        String li="http://s3.starone.pw:80/stalker_portal/server/load.php?type="+type +"&action=create_link&JsHttpRequest=1-xml";
+        String li=portal+"/stalker_portal/server/load.php?type="+type +"&action=create_link&JsHttpRequest=1-xml";
         if (type.equals("vod")){
             li+="&cmd="+link;
         }else{
@@ -335,7 +345,7 @@ public String getDeviceSerialNumber() throws Exception{
 
     private void afterHandshake(String random) throws Exception {
         long time=System.currentTimeMillis();
-        String link="http://s3.starone.pw:80/stalker_portal/server/load.php?type=stb&action=get_profile&hd=1&ver=" +
+        String link=portal+"/stalker_portal/server/load.php?type=stb&action=get_profile&hd=1&ver=" +
                 encode("ImageDescription: " + "0.2.18-r14-pub-250" + "; ImageDate: " + (new Date()).toString() + "; PORTAL version: "
                 + "5.2.0" + "; API Version: " + "134"+"; Player Engine version: 0x566" ).replaceAll("\\+","%20")+
                 "&" +

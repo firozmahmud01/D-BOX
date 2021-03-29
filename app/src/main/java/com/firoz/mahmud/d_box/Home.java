@@ -53,6 +53,7 @@ public class Home extends Fragment {
         setiv=view.findViewById(R.id.home_settings_imageview);
         appiv=view.findViewById(R.id.home_app_imageview);
         tviv=view.findViewById(R.id.home_tv_imageview);
+        wifi=view.findViewById(R.id.home_view_wifi_imageview);
         api=new Api(getContext(),h);
         vod=view.findViewById(R.id.home_vod_imageview);
 
@@ -61,8 +62,8 @@ public class Home extends Fragment {
         api.changeSizeofView(appiv,ma.p,20);
         api.changeSizeofView(tviv,ma.p,20);
         api.changeSizeofView(vod,ma.p,20);
-        wifi=view.findViewById(R.id.home_view_wifi_imageview);
         api.changeSizeofView(wifi,ma.p,20);
+
         wifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +74,15 @@ public class Home extends Fragment {
 
         update=view.findViewById(R.id.home_view_update_imageview);
         api.changeSizeofView(update,ma.p,20);
+        vod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fm=getFragmentManager().beginTransaction();
+                MainFragment mf=new MainFragment(height,width,ma,null,null,null,false);
+                fm.replace(R.id.mainFram,mf);
+                fm.commit();
+            }
+        });
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +152,8 @@ public class Home extends Fragment {
                 ma.isHome=false;
                 updateAlfha(3);
                 FragmentTransaction fm=getFragmentManager().beginTransaction();
-                fm.replace(R.id.mainFram,new MainFragment(height,width,ma,null,null,null));
+                MainFragment mf=new MainFragment(height,width,ma,null,null,null,true);
+                fm.replace(R.id.mainFram,mf);
                 fm.commit();
             }
         });

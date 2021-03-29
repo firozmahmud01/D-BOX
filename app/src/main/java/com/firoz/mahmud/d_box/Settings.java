@@ -32,7 +32,7 @@ public class Settings extends Fragment {
     }
 
     //interface
-    EditText mac,user,pass,snumber;
+    EditText mac,user,pass,snumber,portal;
     CheckBox splash;
 
 
@@ -54,6 +54,7 @@ public class Settings extends Fragment {
         pass=view.findViewById(R.id.settings_password_edittext);
         user=view.findViewById(R.id.settings_User_name_Edittext);
         splash=view.findViewById(R.id.settings_checkBox);
+        portal=view.findViewById(R.id.settings_portal_edittext);
 
 
 
@@ -64,6 +65,7 @@ public class Settings extends Fragment {
         try {
             snumber.setText(api.getDeviceSerialNumber());
         }catch (Exception e){}
+        portal.setText(sp.getString(Api.portal_key,""));
         user.setText(sp.getString(Api.username_key,""));
         pass.setText(sp.getString(Api.password_key,""));
         splash.setChecked(sp.getBoolean(splash_key,true));
@@ -93,6 +95,25 @@ public class Settings extends Fragment {
 
             }
         });
+
+        portal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                spe.putString(Api.portal_key,s.toString());
+                spe.commit();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
 
         pass.addTextChangedListener(new TextWatcher() {
