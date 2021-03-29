@@ -133,10 +133,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/homelinearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
+            app:layout_constraintTop_toTopOf="@+id/guideline4">
 
         </FrameLayout>
 
@@ -195,8 +196,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:focusable="true"
-            android:nextFocusLeft="@id/home_home_imageciew"
             android:focusableInTouchMode="true"
+            android:nextFocusLeft="@id/home_home_imageciew"
             android:src="@drawable/vod"
             app:layout_constraintEnd_toStartOf="@+id/home_view_wifi_imageview"
             app:layout_constraintHorizontal_bias="0.5"
@@ -212,6 +213,13 @@
             app:layout_constraintEnd_toEndOf="@+id/home_view_update_imageview"
             app:layout_constraintStart_toStartOf="@+id/home_view_update_imageview"
             app:layout_constraintTop_toBottomOf="@+id/home_view_update_imageview" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="101dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

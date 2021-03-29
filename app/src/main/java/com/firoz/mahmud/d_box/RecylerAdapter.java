@@ -1,7 +1,10 @@
 package com.firoz.mahmud.d_box;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.Image;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -17,6 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.ViewHolder> {
 
@@ -39,12 +45,23 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.ViewHold
         }
 
     }
+
+    private SharedPreferences sp;
+    private PackageManager pm;
+    JSONArray arr;
     Context context;
+    private FragmentTransaction ft;
     int height,width;
-    public RecylerAdapter(Context context,int height,int width) {
+    MainActivity ma;
+    public RecylerAdapter(Context context,int height,int width,FragmentTransaction ft) throws JSONException {
         this.context=context;
+        this.ma=ma;
+        this.ft=ft;
         this.height=height;
         this.width=width;
+        sp=context.getSharedPreferences(Api.storage_name,Context.MODE_PRIVATE);
+        pm=context.getPackageManager();
+        arr=new JSONArray(sp.getString(HomeView.apps_key,"[]"));
     }
     private void updateSize(View v,boolean isSelected){
         ViewGroup.LayoutParams lp= v.getLayoutParams();
@@ -148,12 +165,40 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.ViewHold
                 Glide.with(context).load(R.drawable.tamviewer).centerCrop().into(holder.getImageView());
                 break;
         }
+        if (position<=4)return;
+        final int pos=position-5;
+        if (pos>=arr.length()){
+            holder.getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ft.replace(R.id.home_fragmanet_layout_toreplace,new AppLister(width,height)).commit();
+                }
+            });
+            Glide.with(context).load(R.drawable.ic_addmoreapp).centerCrop().into(holder.getImageView());
+            return;
+        }
+
+
+        try {
+            final String pack = arr.getString(pos);
+        holder.getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(getIntent(pack));
+            }
+        });
+
+        Glide.with(context).load(pm.getApplicationBanner(pack)).error(pm.getApplicationIcon(pack))
+                .centerCrop().into(holder.getImageView());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return 5;
+        return 6+arr.length();
     }
 
 

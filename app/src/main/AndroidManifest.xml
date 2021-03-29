@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.REBOOT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DBOX"
         android:usesCleartextTraffic="true">
-        <activity android:name=".VideoPlayer"></activity>
+        <activity android:name=".VideoPlayer" />
         <activity
             android:name=".MainActivity"
             android:banner="@drawable/nlogo"
@@ -35,8 +35,9 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>

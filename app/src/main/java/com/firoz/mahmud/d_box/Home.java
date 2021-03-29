@@ -1,5 +1,6 @@
 package com.firoz.mahmud.d_box;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+@SuppressLint("ValidFragment")
 public class Home extends Fragment {
 
 
@@ -112,7 +114,7 @@ public class Home extends Fragment {
         apps.setAlpha((float)0.5);
         tv.setAlpha((float)0.5);
         homeview=new HomeView(height,width);
-        settingsview=new Settings(getContext());
+        settingsview=new AllSettings(width,height);
         appsview=new AllApps(ma);
         appiv.setOnClickListener(new View.OnClickListener() {
             @Override

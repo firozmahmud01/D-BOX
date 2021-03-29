@@ -1,5 +1,6 @@
 package com.firoz.mahmud.d_box;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressLint("ValidFragment")
 public class AllApps extends Fragment {
 
 
