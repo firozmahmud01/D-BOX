@@ -107,7 +107,7 @@ public class MainFragment extends BrowseFragment {
         Thread th=new Thread() {
             @Override
             public void run() {
-                List<Movie>tv,video,radio,favorite;
+                List<Movie>tv,video;
                 while(true){
 
                         if (type != null) {
@@ -163,9 +163,16 @@ public class MainFragment extends BrowseFragment {
                                     pd.dismiss();
                                 }
                             });
-                            }catch (Exception e){
+                            }catch (final Exception e){
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         try {
                             Thread.sleep(5000);
+                            continue;
                         }catch (Exception err){
 
                         }
@@ -246,6 +253,7 @@ public class MainFragment extends BrowseFragment {
                             String link = api.getVideoLink(movie.getVideoUrl(),type);
                             intent.putExtra(VideoPlayer.name,movie.getTitle());
                             intent.putExtra(VideoPlayer.description,movie.getDescription());
+                            intent.putExtra(VideoPlayer.fav,movie.getFav());
                             intent.putExtra(VideoPlayer.link,link);
                             getContext().startActivity(intent);
                         }
@@ -272,7 +280,7 @@ public class MainFragment extends BrowseFragment {
                 RowPresenter.ViewHolder rowViewHolder,
                 Row row) {
             if (item instanceof Movie) {
-                mBackgroundUri = ((Movie) item).getBackgroundImageUrl();
+                mBackgroundUri = ((Movie) item).getBgImageUrl();
             }
         }
     }

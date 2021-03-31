@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 
 public class VideoPlayer extends FragmentActivity {
-    public static String name="NameKey",description="DescriptionKey",link="LinkKey";
+    public static String name="NameKey",description="DescriptionKey",link="LinkKey",fav="favorite";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +17,7 @@ public class VideoPlayer extends FragmentActivity {
             Intent in=getIntent();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new Player(in.getStringExtra(name),
-                            in.getStringExtra(description),in.getStringExtra(link)))
+                            in.getStringExtra(description),in.getStringExtra(link),in.getStringExtra(fav)))
                     .commitNow();
         }
     }

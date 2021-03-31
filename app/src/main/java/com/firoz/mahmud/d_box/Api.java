@@ -116,8 +116,7 @@ public class Api {
                 "&genre=*&JsHttpRequest=1-xml";
         String vod=portal+"/stalker_portal/server/load.php?type=vod&action=get_ordered_list&sortby=fav&fav=1" +
                 "&category=*&JsHttpRequest=1-xml";
-        String radio=portal+"/stalker_portal/server/load.php?type=radio&action=get_ordered_list&sortby=fav&fav=1" +
-                "&JsHttpRequest=1-xml";
+
         JSONObject obj=new JSONObject(GET(tv));
         JSONArray ob=obj.getJSONObject("js").getJSONArray("data");
         for (int i =0;i<ob.length();i++){
@@ -144,19 +143,7 @@ public class Api {
             }
             list.add(m);
         }
-        obj=new JSONObject(GET(radio));
-        ob=obj.getJSONObject("js").getJSONArray("data");
-        for (int i =0;i<ob.length();i++){
-            obj=ob.getJSONObject(i);
-            Movie m=new Movie();
-            m.setVideoUrl(obj.getString("cmd"));
-            m.setType("radio");
-            m.setTitle(obj.getString("name"));
-            if (obj.has("description")){
-                m.setDescription(obj.getString("description"));
-            }
-            list.add(m);
-        }
+
 
         return list;
     }
@@ -201,7 +188,7 @@ public class Api {
         List<Movie> list=new ArrayList<>();
         String data=GET(portal+"/stalker_portal/server/load.php?type="+
                 type+"&action=get_ordered_list&p="+page+"&sortby="+
-                (type.equals("vod")?"added&category="+page:"number&&genre="+gen)+"&JsHttpRequest=1-xml");
+                (type.equals("vod")?"added&category="+gen:"number&genre="+gen)+"&JsHttpRequest=1-xml");
         JSONObject obj=new JSONObject(data);
         obj=obj.getJSONObject("js");
         JSONArray ob=obj.getJSONArray("data");
@@ -210,6 +197,9 @@ public class Api {
             Movie movie=new Movie();
             movie.setVideoUrl(obj.getString("cmd"));
             movie.setTitle(obj.getString("name"));
+            if (obj.has("fav")){
+                movie.setFav(obj.getString("fav"));
+            }
             if (obj.has("description")){
                 movie.setDescription(obj.getString("description"));
             }

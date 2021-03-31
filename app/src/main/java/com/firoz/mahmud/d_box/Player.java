@@ -2,7 +2,7 @@ package com.firoz.mahmud.d_box;
 
 import android.net.Uri;
 import android.os.Bundle;
-
+import android.widget.Toast;
 
 
 import androidx.leanback.app.VideoSupportFragment;
@@ -16,8 +16,10 @@ public class Player extends VideoSupportFragment {
     private PlaybackTransportControlGlue<MediaPlayerAdapter> mTransportControlGlue;
     String name,description;
     String link;
-    public Player(String name,String description,String link){
+    String fav;
+    public Player(String name,String description,String link,String fav){
         this.name=name;
+        this.fav=fav;
         this.description=description;
         this.link=link;
     }
@@ -36,12 +38,14 @@ public class Player extends VideoSupportFragment {
         mTransportControlGlue = new PlaybackTransportControlGlue<>(getContext(), playerAdapter);
         mTransportControlGlue.setHost(glueHost);
         mTransportControlGlue.setTitle(name);
-        mTransportControlGlue.setArt(getContext().getDrawable(R.drawable.diney));
         mTransportControlGlue.setSubtitle(description);
         mTransportControlGlue.playWhenPrepared();
+
         try {
             playerAdapter.setDataSource(Uri.parse(link));
-        }catch (Exception e){}
+        }catch (Exception e){
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

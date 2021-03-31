@@ -49,8 +49,8 @@ public class HomeView extends Fragment {
         try {
             rv.setAdapter(new RecylerAdapter(getContext(), height, width,fm));
         }catch (Exception e){}
-        favorite=view.findViewById(R.id.home_view_recyler);
-        favorite.setLayoutManager(layoutManager);
+        favorite=view.findViewById(R.id.home_fevorite_recyclerview);
+        favorite.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
         Thread th=new Thread(){
             @Override
             public void run() {

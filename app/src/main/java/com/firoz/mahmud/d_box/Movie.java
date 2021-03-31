@@ -14,8 +14,12 @@ public class Movie implements Serializable {
     private String cardImageUrl;
     private String videoUrl;
     private String type;
-
+    private String fav;
     public Movie() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public long getId() {
@@ -42,27 +46,11 @@ public class Movie implements Serializable {
         this.description = description;
     }
 
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
-    public String getBackgroundImageUrl() {
+    public String getBgImageUrl() {
         return bgImageUrl;
     }
 
-    public void setBackgroundImageUrl(String bgImageUrl) {
+    public void setBgImageUrl(String bgImageUrl) {
         this.bgImageUrl = bgImageUrl;
     }
 
@@ -74,15 +62,27 @@ public class Movie implements Serializable {
         this.cardImageUrl = cardImageUrl;
     }
 
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", videoUrl='" + videoUrl + '\'' +
-                ", backgroundImageUrl='" + bgImageUrl + '\'' +
-                ", cardImageUrl='" + cardImageUrl + '\'' +
-                ", Type='" + type + '\'' +
-                '}';
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFav() {
+        return fav;
+    }
+
+    public void setFav(String fav) {
+        this.fav = fav;
     }
 }

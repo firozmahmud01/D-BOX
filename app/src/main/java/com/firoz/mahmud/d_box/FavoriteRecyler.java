@@ -63,18 +63,19 @@ public class FavoriteRecyler extends RecyclerView.Adapter<RecylerAdapter.ViewHol
     }
 
     private void updateSize(View view ,boolean selected){
-        //todo need to check
-
-//        ViewGroup.LayoutParams lp=view.getLayoutParams();
-//        if (selected){
-//            int a=CARD_WIDTH/5;
-//            lp.width=CARD_WIDTH+a;
-//            lp.width=CARD_HEIGHT+((a*CARD_HEIGHT)/CARD_WIDTH);
-//        }else{
-//            lp.width=CARD_WIDTH;
-//            lp.width=CARD_HEIGHT;
-//        }
-//        view.setLayoutParams(lp);
+        ViewGroup.LayoutParams lp=view.getLayoutParams();
+        lp=lp==null?new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT):lp;
+        if (selected){
+            int a=CARD_WIDTH/5;
+            lp.width=CARD_WIDTH+a;
+            lp.width=CARD_HEIGHT+((a*CARD_HEIGHT)/CARD_WIDTH);
+        }else{
+            lp.width=CARD_WIDTH;
+            lp.width=CARD_HEIGHT;
+        }
+        view.setLayoutParams(lp);
     }
 
     @Override
