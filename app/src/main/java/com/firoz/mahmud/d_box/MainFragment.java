@@ -109,7 +109,6 @@ public class MainFragment extends BrowseFragment {
             public void run() {
                 List<Movie>tv,video;
                 while(true){
-
                         if (type != null) {
                             for (int i=1;true;i++) {
                                 try {
